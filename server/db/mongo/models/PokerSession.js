@@ -8,50 +8,59 @@ var PokerSessionSchema = new mongoose.Schema({
         email: {type: String,required: true,lowercase: true},
         name: {type: String, default: 'Playah'}
     },
-    venue: {
+    venue: {//simple string for now later we make a Venue model
         type: String,
         required: true
     },
-    //6th
-    variant: {
-        type: String,
+    variant: {//needs to be an enumerated list of strings
+        type: String,//OK for now just 
         required: true
-    },
-    //7th
-    blinds: {
+    },   
+    blinds: {//Array with two items of type number
         type: Array,
         required: true
     },
-    //11th
-    buyin: {
+    buyin: {//number- but always returned to user with currency
         type: Number,
         required: true
     },
-    //12th
-    cashout: {
+    rebuys: {
+      type: Array, //store each rebuy- first element is initial buyin
+      required: false,
+      // total buyin = sum of rebuys array
+    },//eventually needs to be a required field
+    cashout: {//add currency symbol when displaying to user
         type: Number,
         required: true
     },
-    //1st
-    start: {
+    start: {//Store as Date object
         type: Date,
         required: true
     },
-    //2nd
-    end: {
+    end: {//store as date object
         type: Date,
         required: true
     },
-    //let
-    profit: {
+    profit: {//add currency symbol when displaying to user->virtuals
         type: Number,
-        default
-        : 0
+        default : 0
     },
-    //5th
-    duration: {
-        type: Number,
-        default: 0
+    duration: {//end-start
+        type: Number,//store as number of milliseconds easy to convert to
+        default: 0    //any time unit for display e.g. 5 hours 30minutes
+    },
+    hourly: {//hourly profit profit/duration
+        type: Number,//e.g. display $21.23 per hour//store 21.23
+        default: 0                                     
+    },
+    rake: {
+      type: Number,//this will need it's own model later for now ok
+      default: 5
+    },
+    currency: {
+      type: String,//list of currencies e.g. EUR,USD,GBP
+      required: true,
+      default: 'GBP'
     }
 
 

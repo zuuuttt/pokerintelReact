@@ -1,0 +1,113 @@
+import controllers from '../controllers'
+const Nadia=require("./testdata/Nadia.json");
+const Hashim=require("./testdata/Hashim.json")
+const pokerSessionController=controllers.PokerSession;
+
+
+
+
+
+let purgeDB=function () {
+    
+
+    Session.remove({},(err)=> {
+        if(err) {
+            return HandleError(err);
+        }
+    })
+    User.remove({},(err)=> {
+        if(err) {
+            return HandleError(err);
+        }
+    });
+console.log("all records deleted")
+}
+
+purgeDB();
+
+describe("Tests user account functionality", function() {
+
+    it("tests that we can create a new user account", function(done) {
+        agent.post("/user/create")               // start creating your request
+            .type('form')                   // mimic the action of submittin a request with a form
+            .send(Hashim.user) // Request construction finished and send the information passed as an argument ex: {name: "pedro", age: 22}
+            .expect( function(res){// Check that the responce does or does not have the information necessary to make the test pass
+                expect(res.text).toContain("Redirecting to /user/zuuuttt")
+                
+                
+            })
+            .end(function(err, res) {          // Allways add these lines when using Supertest with Jasmine
+                if(err) {
+                   
+                    return done.fail(err)
+                }
+                
+                done()
+            })
+    })
+    
+    it("tests app redirects to /  when we try to enter a user that already exists", function(done) {
+        agent.post("/user/create")
+            .type('form')
+            .send(Hashim.user)
+            .expect(function (res) {
+                expect(res.text).toContain("Redirecting to /")
+   
+        })
+        .end(function(err, res) {          // Allways add these lines when using Supertest with Jasmine
+                if(err) {
+                    
+                    return done.fail(err)
+                }
+                
+                done()
+            });
+    });
+     
+});
+
+describe("POST /user/:username/session/create", function () {
+    it("tests whether we can enter a session and we get a page back with sessions", function (done) {
+        agent.post("/user/zuuuttt/session/create")
+        .type('form')
+        .send(Hashim.sessions[1])
+        .expect( function (res) {
+            
+            expect(res.text).toContain("Redirecting to /user/zuuuttt/session/list")
+        })
+        .end(function (err,res) {
+            
+            if(err) {
+                return done.fail(err)
+            }
+            done();
+            
+        })
+                            
+                        
+    });
+    
+    it("tests what happens when an invalid session is posted", function(done) {
+        let sessionObj={username: "zuuuttt", venue: "Viage"};
+       
+        agent.post("/user/zuuuttt/session/create")
+        .type('form')
+        .send(sessionObj)
+        .expect(function (res) {
+            console.log("error res",res.body);
+            expect(res.text).toContain("Redirecting to /")
+        })
+        .end(function (err,res) {
+            console.log("done error",err);
+            if(err) {
+                return done.fail(err)
+            }
+            done();
+            
+        });
+        
+        
+    });
+
+});
+

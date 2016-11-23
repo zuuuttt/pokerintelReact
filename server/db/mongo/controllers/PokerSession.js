@@ -1,6 +1,6 @@
 import PokerSession from '../models/PokerSession.js'
 
-export function add(req, res) {
+export function save(req, res) {
   PokerSession.create(req.body, (err) => {
     if (err) {
       console.log(err);
@@ -12,7 +12,7 @@ export function add(req, res) {
 }
 
 export default {
-    add
+    save
 }
 
 //

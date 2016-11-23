@@ -1,18 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import Page from 'pages/Page';
-import AboutContainer from 'containers/About';
+import HomeContainer from 'containers/Home'
 
-import {Button, ButtonToolbar} from 'react-bootstrap'
-
-
-
-class About extends Component {
+class Home extends Component {
   
   render() {
-    console.log("This",this)
+    console.log("Home This",this)
+    
     return (
       <Page {...this.getMetaData()}>
-        <AboutContainer {...this.props} />        
+        <HomeContainer {...this.props}/>     
       </Page>
     );
   }
@@ -26,12 +23,12 @@ class About extends Component {
   }
 
   pageTitle() {
-    return 'About | reactGo';
+    return 'Home | Poker Intelligence';
   }
 
   pageMeta() {
     return [
-      { name: "description", content: "A reactGo example of life" }
+      { name: "description", content: "PokerIntel" }
     ];
   }
 
@@ -39,5 +36,5 @@ class About extends Component {
     return [];
   }
 }
-
-export default About;
+console.log(Home)
+export default Home;

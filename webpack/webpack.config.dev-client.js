@@ -76,7 +76,8 @@ module.exports = {
     // Multiple entry with hot loader
     // https://github.com/glenjamin/webpack-hot-middleware/blob/master/example/webpack.config.multientry.js
     entry: {
-      app: ['./client', hotMiddlewareScript]
+      app: ['./client', hotMiddlewareScript],
+      units: ['../server/db/spec/controller.spec']
     },
     output: {
       // The output directory as absolute path

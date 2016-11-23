@@ -1,0 +1,66 @@
+import express from 'express'
+import User from '../mongo/models/user'
+import supertest from 'supertest'
+import expressConfig from '../../config/express';
+import routesConfig from '../../config/routes';
+
+
+const Hashim=require("./testdata/Hashim.json")
+const app = express();
+
+
+/*
+ * Bootstrap application settings
+ */
+expressConfig(app);
+
+/*
+ * Getting express routes for the app
+ *
+ *
+ */
+ routesConfig(app);
+
+//clean the database
+let purgeDB=function () {
+    
+//
+//    PokerSession.remove({},(err)=> {
+//        if(err) {
+//            return HandleError(err);
+//        }
+//    })
+    User.remove({},(err)=> {
+        if(err) {
+            return HandleError(err);
+        }
+    });
+console.log("all records deleted")
+}
+
+purgeDB();
+
+const agent = supertest.agent(app);
+
+describe("POST /user/create test the create user functionality", function() {
+
+    it("tests that we can create a new user which does not exist in the database", function(done) {
+        agent.post("/signup")               
+            .type('form') // mimic the action of submittin a request with a form
+            .send(Hashim.user) // {email,password}
+            .expect( function(res){// Check that the responce does or does not have the information necessary to make the test pass
+                expect(res.status).toContain("Redirecting to /user/zuuuttt")
+                
+                
+            })
+            .end(function(err, res) {          // Allways add these lines when using Supertest with Jasmine
+                if(err) {
+                   
+                    return done.fail(err)
+                }
+                
+                done()
+            })
+    })
+});
+///////////////////////////////////////////    

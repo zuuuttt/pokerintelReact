@@ -19,8 +19,8 @@ export default (app) => {
     console.warn(unsupportedMessage('users routes'));
   }
   if(pokerSessionController) {
-    console.log(pokerSessionController)
-    app.get('/newPokerSession');
+    
+    app.post('/savePokerSession',pokerSessionController.save);
     
   }
   else {
