@@ -67,13 +67,11 @@ var PokerSessionSchema = new mongoose.Schema({
 });
 
 
-PokerSessionSchema.post('save',(session)=>{
-    
+PokerSessionSchema.post('save',(play)=>{
     User.update({email: play.user.email},{$inc: {total_profit: play.profit, total_duration: play.duration}},(err,raw)=> {
         if(err) {
             return handleError(err);
         }
-        //console.log('Mongo Response',raw);
     });
     console.log("Session that was saved",play);
     

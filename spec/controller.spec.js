@@ -55,7 +55,7 @@ describe("POST /signup and POST /login routes- tests signup and user login funct
             .type('form') // mimic the action of submittin a request with a form
             .send(Hashim.user) // {email,password}
             .expect( function(res){// Check that the responce does or does not have the information necessary to make the test pass
-              console.log("REsponse",res.body)
+              //console.log("REsponse",res.body)
                 
                 expect(res.status).toBe(200)
                 
@@ -77,7 +77,7 @@ describe("POST /signup and POST /login routes- tests signup and user login funct
             .type('form') // mimic the action of submittin a request with a form
             .send(Hashim.user) // {email,password}
             .expect( function(res){// Check that the responce does or does not have the information necessary to make the test pass
-              console.log("Response",res.body)
+              //console.log("Response",res.body)
                 
                 expect(res.status).toBe(409)
 
@@ -97,7 +97,7 @@ describe("POST /signup and POST /login routes- tests signup and user login funct
 describe("test the storing and retrieving of poker session data", function() {
 
     it("tests POST /startPokerSession save one completed cash session to the database", function(done) {
-        console.log("am i here?")
+        //console.log("am i here?")
         agent.post("/startPokerSession")               
             .type('form') 
             .send(Hashim.sessions[0]) //use first session in Hashim.json
@@ -105,14 +105,7 @@ describe("test the storing and retrieving of poker session data", function() {
               expect(res.status).toBe(200)
           
             })
-            .end(function(err, res) {          // Allways add these lines when using Supertest with Jasmine
-                if(err) {
-                   
-                    return done.fail(err)
-                }
-                
-                done()
-            })
+            .end(done)
     })
 });
 
