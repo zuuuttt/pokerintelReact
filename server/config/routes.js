@@ -18,11 +18,13 @@ export default (app) => {
   } else {
     console.warn(unsupportedMessage('users routes'));
   }
+  //////////////////////////////////////////////////////////////////////////////////////////////
   if(pokerSessionController) {
     
-    app.post('/savePokerSession',pokerSessionController.save);
+    app.post('/startPokerSession', pokerSessionController.save);
     
   }
+  //////////////////////////////////////////////////////////////////////////////////
   else {
     console.warn(unsupportedMessage('poker routes'))
   }

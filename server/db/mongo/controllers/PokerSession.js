@@ -1,8 +1,10 @@
 import PokerSession from '../models/PokerSession.js'
 
 export function save(req, res) {
+  console.log('inside save')
   PokerSession.create(req.body, (err) => {
     if (err) {
+      console.log('THIS IS THE ERROR IN CONTROLLERS!!!!!!!!!!!!!!!!!!!!!!!!!')
       console.log(err);
       return res.status(400).send(err);
     }
