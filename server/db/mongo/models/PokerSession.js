@@ -1,19 +1,37 @@
 var mongoose = require('mongoose');
 const User=mongoose.model('User')
+const variants=[
+  'No Limit Holdem',
+  'Pot Limit Omaha',
+  'Limit Holdem',
+  'Limit O8',
+  'Pot Limit O8',
+  'Mixed',
+  'Other'
+];
+const currencies=[
+  'EUR',
+  'GBP',
+  'USD'
+]
 
 var PokerSessionSchema = new mongoose.Schema({
 
-
     user: {
-        email: {type: String,required: true,lowercase: true},
-        name: {type: String, default: 'Playah'}
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'User',
+      required: true
+    
+    
     },
+   
     venue: {//simple string for now later we make a Venue model
         type: String,
         required: true
     },
     variant: {//needs to be an enumerated list of strings
-        type: String,//OK for now just 
+        type: String,
+        enum: variants,//OK for now just 
         required: true
     },   
     blinds: {//Array with two items of type number
@@ -54,11 +72,12 @@ var PokerSessionSchema = new mongoose.Schema({
         default: 0                                     
     },
     rake: {
-      type: Number,//this will need it's own model later for now ok
-      default: 5
+      percentage: {type: Number,required: true, default: 5},
+      cap: {type: Number,required: true, default: 10}
     },
     currency: {
-      type: String,//list of currencies e.g. EUR,USD,GBP
+      type: String,
+      enum: currencies,//list of currencies e.g. EUR,USD,GBP
       required: true,
       default: 'GBP'
     }
@@ -67,13 +86,18 @@ var PokerSessionSchema = new mongoose.Schema({
 });
 
 
-PokerSessionSchema.post('save',(play)=>{
-    User.update({email: play.user.email},{$inc: {total_profit: play.profit, total_duration: play.duration}},(err,raw)=> {
+PokerSessionSchema.post('save',(pokerSession) => {
+  User.update( {_id: pokerSession.user},{
+    $inc: {
+      total_profit: pokerSession.profit, 
+      total_duration: pokerSession.duration
+    }
+  },(err,raw) => {
         if(err) {
             return handleError(err);
         }
     });
-    console.log("Session that was saved",play);
+    
     
 })
 
@@ -83,7 +107,7 @@ PokerSessionSchema.pre('save', function(next) {
     next();   
 });
 
-PokerSessionSchema.virtual('blinds.str').get(function () {
+PokerSessionSchema.virtual('blinds.display').get(function () {
     var small=this.blinds[0].toString();
     var big=this.blinds[1].toString();
     return "£"+small+"/"+"£"+big;

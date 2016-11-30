@@ -2,10 +2,8 @@ import React from 'react';
 import { IndexRedirect,Redirect } from 'react-router'
 import { Route, IndexRoute } from 'react-router';
 import { fetchVoteData } from 'fetch-data';
-import { App, Vote, Dashboard, About, LoginOrRegister} from 'pages';
-import Home from 'pages/Home'
- console.log("Home",Home)
- console.log("Vote",Vote)
+import { App, Vote, Dashboard, About, LoginOrSignup,StartPokerSession} from 'pages';
+
 /*
  * @param {Redux Store}
  * We require store as an argument here because we wish to get
@@ -38,10 +36,9 @@ export default (store) => {
   return (
    
       <Route path="/" component={App}>
-        <IndexRoute component={About}/>
-        <Route path="login" component={LoginOrRegister}/>
-        <Route path="about" component={About}/>
-        <Route path="home" component={Home}/>
+        <IndexRoute component={LoginOrSignup}/>
+        <Route path="LoginOrSignup" component={LoginOrSignup}/>
+        <Route path="StartPokerSession" component={StartPokerSession}/>
       </Route>
    
   );
