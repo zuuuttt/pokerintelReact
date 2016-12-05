@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Jumbotron} from 'react-bootstrap'
+import {Button, Jumbotron,Row,Column} from 'react-bootstrap'
 
 
 

@@ -17,26 +17,21 @@ const LoggedInMenu=(
   <IndexLinkContainer to="/MyPokerIntel" activeClassName={cx('active')}>
     <NavItem>My Poker Intel</NavItem>
   </IndexLinkContainer>
-  <LinkContainer to="/AddLiveSession" activeClassName={cx('active')}>
-    <NavItem>Add Live Session</NavItem>
-  </LinkContainer>
-  <LinkContainer to="/AddCompletedSession" activeClassName={cx('active')}>
-    <NavItem>Add Completed Session</NavItem>
-  </LinkContainer>
-  <LinkContainer to="/Analyse" activeClassName={cx('active')}>
-    <NavItem>Analyse</NavItem>  
-  </LinkContainer>
-  <LinkContainer onClick={logOut} to="/logout" activeClassName={cx('active')}>
+  <IndexLinkContainer to="/StartPokerSession" activeClassName={cx('active')}>
+    <NavItem>Start Session</NavItem>
+  </IndexLinkContainer>
+  <IndexLinkContainer to="/CompletePokerSession" activeClassName={cx('active')}>
+    <NavItem>Finish Session</NavItem>
+  </IndexLinkContainer>
+  <IndexLinkContainer onClick={logOut} to="/logout" activeClassName={cx('active')}>
     <NavItem>Logout</NavItem>  
-  </LinkContainer>
+  </IndexLinkContainer>
 </Nav>)//Menu to display if user is logged in
 
 const LoggedOutMenu=(
   <Nav bsStyle='pills'>
-      <IndexLinkContainer to="/home">
-        <NavItem>Home</NavItem>
-      </IndexLinkContainer>
-      <IndexLinkContainer to="/register">
+
+      <IndexLinkContainer to="/LoginOrSignup">
         <NavItem>Login</NavItem>
       </IndexLinkContainer>
 
@@ -50,7 +45,7 @@ const LoggedOutMenu=(
     return LoggedInMenu;
   }
   else {
-    return LoggedOutMenu;
+    return LoggedInMenu;
   }
   
 }
