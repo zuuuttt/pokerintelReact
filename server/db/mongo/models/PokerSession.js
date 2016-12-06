@@ -133,6 +133,14 @@ PokerSessionSchema.virtual('fullblinds').get(function () {
     return res;
 });
 
+PokerSessionSchema.virtual('buyin_display').get(function() {
+    return "\£" + this.buyin
+})
+
+PokerSessionSchema.virtual('cashout_display').get(function() {
+    return "\£" + this.cashout
+})
+
 //All instances of the sessionSchema will have a findAll, i.e. the Session model
 // will have a findAll method.
 PokerSessionSchema.statics.findAll = function(username,cb) {  

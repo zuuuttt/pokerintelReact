@@ -106,30 +106,24 @@ describe("test the storing and retrieving of poker session data:::", function() 
             .expect((res)=> {             
               expect(res.status).toBe(200)
               saved_session=res.body;
-              //console.log(res.body)
             })
             .end(done)            
     });
   
     it("tests that the saved poker session had profit correctly saved by save.post middleware", function () {
-      //console.log(saved_session);
       let expected_profit=test_session.cashout-test_session.buyin;
       expect(saved_session.profit).toEqual(expected_profit);      
-      //done();
     });
   
-    it("tests that the sum of rebuys totals the buyin amount. When rebuys.length = 1 then rebuys[0]===buyin", function () { // DOES NOT PASS
-      //console.log(saved_session.rebuys)
-      let total_rebuys=saved_session.rebuys.reduce((prev,curr) => { ////////////////////////////////////////////////
+    it("tests that the sum of rebuys totals the buyin amount. When rebuys.length = 1 then rebuys[0]===buyin", function () { 
+      let total_rebuys=saved_session.rebuys.reduce((prev,curr) => { 
         return prev += curr;
       }, 0);      
       expect(total_rebuys).toEqual(saved_session.buyin)
-      //done();
     });
   
     it("tests that the calculated duration is a number, i.e. the number of milliseconds between start and end date values", function() {
       expect(typeof saved_session.duration).toEqual('number')
-      //done();
     });
   
     it("tests that the calculated duration is correct by checking start and end date", function () {
@@ -137,24 +131,23 @@ describe("test the storing and retrieving of poker session data:::", function() 
       let start_date=new Date(test_session.start);
       let expected_duration=end_date-start_date;
       expect(expected_duration).toEqual(saved_session.duration);
-      //done();
     });
   
-    it("tests that there is a virtual getter which provides blinds in a suitable format for display to the user", function () {////DOES NOT PASS
-      console.log(saved_session.fullblinds)
-      console.log(saved_session)
-     if (saved_session.fullblinds != '\£2\/\£2') throw new Error('not right format for blinds and currency')
-      //done();
+    it("tests that there is a virtual getter which provides blinds in a suitable format for display to the user", function () {
+      var fullblinds = saved_session.fullblinds
+      expect(fullblinds).toEqual('\£2\/\£2')
     });
   
-    xit("tests that there is a virtual getters which displays buyin with currency symbol for user display", function () {//does not pass
-      expect("£"+saved_session.buyin).toEqual(saved_session.buyin_diplay);
-      //done();
+    it("tests that there is a virtual getters which displays buyin with currency symbol for user display", function () {//does not pass
+      var expected_out = "\£" + saved_session.buyin
+      var display = saved_session.buyin_display
+      expect(display).toEqual(expected_out);
     });
   
-    xit("tests that there is a virtual getter which displays cashout amount with currency symbol for user display", function () { ///DOES NOT PASS
-      expect("£"+saved_session.cashout).toEqual(saved_session.cashout.display);
-      //done()
+    it("tests that there is a virtual getter which displays cashout amount with currency symbol for user display", function () { ///DOES NOT PASS =
+      var expected_out =  "\£" + saved_session.cashout
+      var display = saved_session.cashout_display
+      expect(expected_out).toEqual(display);
     });    
 });
 
