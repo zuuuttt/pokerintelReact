@@ -1,6 +1,4 @@
-/**
- * Routes for express app
- */
+/* Routes for express app */
 import passport from 'passport';
 import unsupportedMessage from '../db/unsupportedMessage';
 import { controllers, passport as passportConfig } from '../db';
@@ -21,7 +19,7 @@ export default (app) => {
   //////////////////////////////////////////////////////////////////////////////////////////////
   if(pokerSessionController) {
     
-    app.post('/startPokerSession', pokerSessionController.save);
+    app.post('/SaveCompletedPokerSession', pokerSessionController.save);
     
   }
   //////////////////////////////////////////////////////////////////////////////////

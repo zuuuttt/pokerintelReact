@@ -2,8 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import Page from 'pages/Page';
 import LoginOrRegisterContainer from 'containers/LoginOrRegister';
 
+import {Grid,Row,Col} from 'react-bootstrap'
+
 class LoginOrRegister extends Component {
   render() {
+    console.log("grid",Grid)
     return (
       <Page {...this.getMetaData()}>
         <LoginOrRegisterContainer {...this.props} />

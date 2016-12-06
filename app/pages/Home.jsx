@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Page from 'pages/Page';
 import HomeContainer from 'containers/Home'
+import {PageHeader,Row,Col} from 'react-bootstrap'
 
 class Home extends Component {
   
@@ -9,6 +10,7 @@ class Home extends Component {
     
     return (
       <Page {...this.getMetaData()}>
+        <PageHeader>PokerIntel Increase your Bottom Line</PageHeader>
         <HomeContainer {...this.props}/>     
       </Page>
     );
