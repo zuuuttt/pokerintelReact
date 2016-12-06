@@ -6,8 +6,7 @@ export function save(req, res) {
   PokerSession.create(req.body, (err,pokerSession) => {
     
     if (err) {
-      console.log('THIS IS THE ERROR IN CONTROLLERS!!!!!!!!!!!!!!!!!!!!!!!!!')
-      console.log(err);
+      console.log('THIS IS THE ERROR IN CONTROLLERS!!!!!!!!!!!!!!!!!!!!!!!!!', err)
       return res.status(400).send(err);
     }
     
